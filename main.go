@@ -37,9 +37,11 @@ func main() {
 
 func BindRoutes(s server.Server, r *echo.Router) {
 
-	r.Add("GET", "/home", handlers.HomeHandler)
-	r.Add("POST", "/users", handlers.SignUpHandler)
+	r.Add("POST", "/signup", handlers.SignUpHandler)
+	r.Add("POST", "/login", handlers.Login)
+	r.Add("GET", "/users", handlers.ListUsersHandler)
 	r.Add("GET", "/players", handlers.ListPlayersHandler)
 	r.Add("POST", "/players", handlers.InsertPlayerHandler)
+	r.Add("PUT", "/players/:playerId", handlers.UpdatePlayerHandler)
 
 }

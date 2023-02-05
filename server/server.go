@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/VicFlores/fifa_mobile_API/database"
+	"github.com/VicFlores/fifa_mobile_API/middleware"
 	"github.com/VicFlores/fifa_mobile_API/repository"
 	"github.com/labstack/echo/v4"
 )
@@ -54,6 +55,9 @@ func NewServer(ctx context.Context, config *Config) (*Broker, error) {
 
 func (b *Broker) Start(binder func(s Server, r *echo.Router)) {
 	newEcho := echo.New()
+
+	newEcho.Use(middleware.ApiKeyMiddleware)
+	newEcho.Use(middleware.CheckAuthMiddleware)
 
 	b.router = newEcho.Router()
 	binder(b, b.router)
