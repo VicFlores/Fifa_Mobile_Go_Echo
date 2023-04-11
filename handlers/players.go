@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -9,7 +8,6 @@ import (
 
 	"github.com/VicFlores/fifa_mobile_API/models"
 	"github.com/VicFlores/fifa_mobile_API/repository"
-	"github.com/VicFlores/fifa_mobile_API/utils"
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt"
 	"github.com/joho/godotenv"
@@ -89,14 +87,6 @@ func UpdatePlayerHandler(c echo.Context) (err error) {
 	}
 
 	JWT_SECRET := os.Getenv("JWT_SECRET")
-
-	env := utils.NewEnvConfig("JWT_SECRET", "PORT")
-
-	if err != nil {
-		log.Printf(err.Error())
-	}
-
-	log.Println("env", env)
 
 	token, err := jwt.ParseWithClaims(tokenString, &models.AppClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(JWT_SECRET), nil
